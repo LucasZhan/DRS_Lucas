@@ -1,4 +1,4 @@
-ROOT=/home/xuzhan/Documents/VOC2012_DRS_dataset_copy
+ROOT=dataset
 MODEL=deeplabv3plus_resnet101 # deeplabv3plus_resnet101, deeplabv3_resnet101
 ITER=3000
 BATCH=16
