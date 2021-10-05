@@ -1,0 +1,919 @@
+Device: cuda
+split_f :  ./datasets/data/infer.txt True
+split_f :  ./datasets/data/infer.txt True
+Dataset: voc, Train set: 1464, Val set: 1464
+[!] Retrain
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/nn/functional.py:718: UserWarning: Named tensors and all their associated APIs are an experimental feature and subject to change. Please do not use them for anything important until they are released as stable. (Triggered internally at  /pytorch/c10/core/TensorImpl.h:1156.)
+  return torch.max_pool2d(input, kernel_size, stride, padding, dilation, ceil_mode)
+Traceback (most recent call last):
+  File "main.py", line 410, in <module>
+    main()
+  File "main.py", line 359, in main
+    outputs = model(images)
+  File "/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 168, in forward
+    outputs = self.parallel_apply(replicas, inputs, kwargs)
+  File "/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 178, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 86, in parallel_apply
+    output.reraise()
+  File "/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/_utils.py", line 425, in reraise
+    raise self.exc_type(msg)
+RuntimeError: Caught RuntimeError in replica 0 on device 0.
+Original Traceback (most recent call last):
+  File "/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 61, in _worker
+    output = module(*input, **kwargs)
+  File "/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/xuzhan/Documents/fork_repo/DRS/DeepLabV3Plus-Pytorch/network/utils.py", line 16, in forward
+    x = self.classifier(features)
+  File "/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/xuzhan/Documents/fork_repo/DRS/DeepLabV3Plus-Pytorch/network/_deeplab.py", line 49, in forward
+    output_feature = self.aspp(feature['out'])
+  File "/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/xuzhan/Documents/fork_repo/DRS/DeepLabV3Plus-Pytorch/network/_deeplab.py", line 162, in forward
+    return self.project(res)
+  File "/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/nn/modules/container.py", line 139, in forward
+    input = module(input)
+  File "/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/nn/modules/dropout.py", line 58, in forward
+    return F.dropout(input, self.p, self.training, self.inplace)
+  File "/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/nn/functional.py", line 1168, in dropout
+    return _VF.dropout_(input, p, training) if inplace else _VF.dropout(input, p, training)
+RuntimeError: CUDA out of memory. Tried to allocate 20.00 MiB (GPU 0; 7.93 GiB total capacity; 6.34 GiB already allocated; 19.88 MiB free; 6.36 GiB reserved in total by PyTorch)
+
+(drs) xuzhan@xuzhan-B460HD3:~/Documents/fork_repo/DRS/DeepLabV3Plus-Pytorch$ bash run.sh
+Device: cuda
+split_f :  ./datasets/data/infer.txt True
+split_f :  ./datasets/data/infer.txt True
+Dataset: voc, Train set: 1464, Val set: 1464
+[!] Retrain
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/nn/functional.py:718: UserWarning: Named tensors and all their associated APIs are an experimental feature and subject to change. Please do not use them for anything important until they are released as stable. (Triggered internally at  /pytorch/c10/core/TensorImpl.h:1156.)
+  return torch.max_pool2d(input, kernel_size, stride, padding, dilation, ceil_mode)
+Traceback (most recent call last):
+  File "main.py", line 410, in <module>
+    main()
+  File "main.py", line 362, in main
+    scaler.scale(loss).backward()
+  File "/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/_tensor.py", line 255, in backward
+    torch.autograd.backward(self, gradient, retain_graph, create_graph, inputs=inputs)
+  File "/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/autograd/__init__.py", line 147, in backward
+    Variable._execution_engine.run_backward(
+RuntimeError: CUDA out of memory. Tried to allocate 2.07 GiB (GPU 0; 7.93 GiB total capacity; 3.19 GiB already allocated; 2.07 GiB free; 4.30 GiB reserved in total by PyTorch)
+(drs) xuzhan@xuzhan-B460HD3:~/Documents/fork_repo/DRS/DeepLabV3Plus-Pytorch$ bash run.sh
+Device: cuda
+split_f :  ./datasets/data/infer.txt True
+split_f :  ./datasets/data/infer.txt True
+Dataset: voc, Train set: 1464, Val set: 1464
+[!] Retrain
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/nn/functional.py:718: UserWarning: Named tensors and all their associated APIs are an experimental feature and subject to change. Please do not use them for anything important until they are released as stable. (Triggered internally at  /pytorch/c10/core/TensorImpl.h:1156.)
+  return torch.max_pool2d(input, kernel_size, stride, padding, dilation, ceil_mode)
+ Epoch 1, Itrs 10/20000, Loss=1.622275, Time=4063.91 , LR=0.00499775
+ Epoch 1, Itrs 20/20000, Loss=1.274789, Time=3576.28 , LR=0.00499550
+ Epoch 1, Itrs 30/20000, Loss=1.101586, Time=3419.62 , LR=0.00499325
+ Epoch 1, Itrs 40/20000, Loss=0.992101, Time=3356.05 , LR=0.00499100
+^CTraceback (most recent call last):
+  File "main.py", line 410, in <module>
+    main()
+  File "main.py", line 362, in main
+    scaler.scale(loss).backward()
+  File "/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/_tensor.py", line 255, in backward
+    torch.autograd.backward(self, gradient, retain_graph, create_graph, inputs=inputs)
+  File "/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/autograd/__init__.py", line 147, in backward
+    Variable._execution_engine.run_backward(
+KeyboardInterrupt
+
+(drs) xuzhan@xuzhan-B460HD3:~/Documents/fork_repo/DRS/DeepLabV3Plus-Pytorch$ bash run.sh
+Device: cuda
+split_f :  ./datasets/data/infer.txt True
+split_f :  ./datasets/data/infer.txt True
+Dataset: voc, Train set: 1464, Val set: 1464
+[!] Retrain
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torch/nn/functional.py:718: UserWarning: Named tensors and all their associated APIs are an experimental feature and subject to change. Please do not use them for anything important until they are released as stable. (Triggered internally at  /pytorch/c10/core/TensorImpl.h:1156.)
+  return torch.max_pool2d(input, kernel_size, stride, padding, dilation, ceil_mode)
+ Epoch 1, Itrs 10/3000, Loss=1.624067, Time=4071.43 , LR=0.00498500
+ Epoch 1, Itrs 20/3000, Loss=1.279340, Time=3609.90 , LR=0.00496999
+ Epoch 1, Itrs 30/3000, Loss=1.111992, Time=3462.65 , LR=0.00495498
+ Epoch 1, Itrs 40/3000, Loss=0.998915, Time=3386.74 , LR=0.00493996
+ Epoch 1, Itrs 50/3000, Loss=0.929783, Time=3337.61 , LR=0.00492494
+ Epoch 1, Itrs 60/3000, Loss=0.859690, Time=3305.90 , LR=0.00490991
+ Epoch 1, Itrs 70/3000, Loss=0.813497, Time=3282.49 , LR=0.00489488
+ Epoch 1, Itrs 80/3000, Loss=0.769945, Time=3262.88 , LR=0.00487984
+ Epoch 1, Itrs 90/3000, Loss=0.747699, Time=3248.74 , LR=0.00486480
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 2, Itrs 100/3000, Loss=0.463335, Time=3189.26 , LR=0.00484975
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:22,  4.45it/s]
+
+Overall Acc: 0.820650
+Mean Acc: 0.508824
+FreqW Acc: 0.699644
+Mean IoU: 0.402666
+
+Model saved as checkpoints/best_deeplabv3plus_resnet101_voc_os16.pth
+ls
+ Epoch 2, Itrs 110/3000, Loss=0.425896, Time=7772.12 , LR=0.00483469
+ Epoch 2, Itrs 120/3000, Loss=0.414641, Time=6119.50 , LR=0.00481963
+ Epoch 2, Itrs 130/3000, Loss=0.416980, Time=5338.21 , LR=0.00480457
+ Epoch 2, Itrs 140/3000, Loss=0.404783, Time=4878.98 , LR=0.00478950
+ Epoch 2, Itrs 150/3000, Loss=0.408419, Time=4582.23 , LR=0.00477443
+ Epoch 2, Itrs 160/3000, Loss=0.409637, Time=4367.95 , LR=0.00475935
+ Epoch 2, Itrs 170/3000, Loss=0.401466, Time=4213.18 , LR=0.00474426
+ Epoch 2, Itrs 180/3000, Loss=0.399351, Time=4091.51 , LR=0.00472917
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 3, Itrs 190/3000, Loss=0.340924, Time=3225.60 , LR=0.00471408
+ Epoch 3, Itrs 200/3000, Loss=0.339711, Time=3179.08 , LR=0.00469897
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:21,  4.51it/s]
+
+Overall Acc: 0.868024
+Mean Acc: 0.764904
+FreqW Acc: 0.777560
+Mean IoU: 0.599343
+
+Model saved as checkpoints/best_deeplabv3plus_resnet101_voc_os16.pth
+ Epoch 3, Itrs 210/3000, Loss=0.351507, Time=6348.42 , LR=0.00468387
+ Epoch 3, Itrs 220/3000, Loss=0.324153, Time=5487.47 , LR=0.00466876
+ Epoch 3, Itrs 230/3000, Loss=0.319068, Time=4977.04 , LR=0.00465364
+ Epoch 3, Itrs 240/3000, Loss=0.324780, Time=4645.27 , LR=0.00463852
+ Epoch 3, Itrs 250/3000, Loss=0.329683, Time=4416.35 , LR=0.00462339
+ Epoch 3, Itrs 260/3000, Loss=0.331523, Time=4248.31 , LR=0.00460825
+ Epoch 3, Itrs 270/3000, Loss=0.324396, Time=4117.30 , LR=0.00459311
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 4, Itrs 280/3000, Loss=0.260102, Time=3214.32 , LR=0.00457797
+ Epoch 4, Itrs 290/3000, Loss=0.257618, Time=3137.89 , LR=0.00456282
+ Epoch 4, Itrs 300/3000, Loss=0.271520, Time=3133.74 , LR=0.00454766
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:20,  4.52it/s]
+
+Overall Acc: 0.859429
+Mean Acc: 0.838411
+FreqW Acc: 0.769469
+Mean IoU: 0.610651
+
+Model saved as checkpoints/best_deeplabv3plus_resnet101_voc_os16.pth
+ Epoch 4, Itrs 310/3000, Loss=0.280630, Time=5557.11 , LR=0.00453250
+ Epoch 4, Itrs 320/3000, Loss=0.269362, Time=5002.53 , LR=0.00451733
+ Epoch 4, Itrs 330/3000, Loss=0.270408, Time=4651.11 , LR=0.00450216
+ Epoch 4, Itrs 340/3000, Loss=0.266069, Time=4410.75 , LR=0.00448698
+ Epoch 4, Itrs 350/3000, Loss=0.265188, Time=4236.59 , LR=0.00447180
+ Epoch 4, Itrs 360/3000, Loss=0.263354, Time=4102.61 , LR=0.00445661
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 5, Itrs 370/3000, Loss=0.218331, Time=3244.94 , LR=0.00444141
+ Epoch 5, Itrs 380/3000, Loss=0.278217, Time=3162.71 , LR=0.00442621
+ Epoch 5, Itrs 390/3000, Loss=0.295679, Time=3148.70 , LR=0.00441100
+ Epoch 5, Itrs 400/3000, Loss=0.299434, Time=3138.76 , LR=0.00439579
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:20,  4.52it/s]
+
+Overall Acc: 0.882000
+Mean Acc: 0.771400
+FreqW Acc: 0.793733
+Mean IoU: 0.616696
+
+Model saved as checkpoints/best_deeplabv3plus_resnet101_voc_os16.pth
+ Epoch 5, Itrs 410/3000, Loss=0.286976, Time=5091.96 , LR=0.00438057
+ Epoch 5, Itrs 420/3000, Loss=0.284362, Time=4713.05 , LR=0.00436535
+ Epoch 5, Itrs 430/3000, Loss=0.284198, Time=4456.27 , LR=0.00435011
+ Epoch 5, Itrs 440/3000, Loss=0.283688, Time=4271.24 , LR=0.00433488
+ Epoch 5, Itrs 450/3000, Loss=0.280229, Time=4129.83 , LR=0.00431963
+ Epoch 5, Itrs 460/3000, Loss=0.275318, Time=4006.10 , LR=0.00430439
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 6, Itrs 470/3000, Loss=0.238156, Time=3128.02 , LR=0.00428913
+ Epoch 6, Itrs 480/3000, Loss=0.258817, Time=3124.71 , LR=0.00427387
+ Epoch 6, Itrs 490/3000, Loss=0.250011, Time=3117.18 , LR=0.00425860
+ Epoch 6, Itrs 500/3000, Loss=0.254517, Time=3114.52 , LR=0.00424333
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:20,  4.53it/s]
+
+Overall Acc: 0.892960
+Mean Acc: 0.828059
+FreqW Acc: 0.813638
+Mean IoU: 0.661267
+
+Model saved as checkpoints/best_deeplabv3plus_resnet101_voc_os16.pth
+ Epoch 6, Itrs 510/3000, Loss=0.250648, Time=4757.84 , LR=0.00422805
+ Epoch 6, Itrs 520/3000, Loss=0.249491, Time=4484.63 , LR=0.00421277
+ Epoch 6, Itrs 530/3000, Loss=0.245779, Time=4288.78 , LR=0.00419748
+ Epoch 6, Itrs 540/3000, Loss=0.245285, Time=4142.00 , LR=0.00418218
+ Epoch 6, Itrs 550/3000, Loss=0.242043, Time=4025.92 , LR=0.00416687
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 7, Itrs 560/3000, Loss=0.196022, Time=3123.44 , LR=0.00415156
+ Epoch 7, Itrs 570/3000, Loss=0.196913, Time=3103.66 , LR=0.00413625
+ Epoch 7, Itrs 580/3000, Loss=0.216420, Time=3106.42 , LR=0.00412092
+ Epoch 7, Itrs 590/3000, Loss=0.221100, Time=3108.36 , LR=0.00410560
+ Epoch 7, Itrs 600/3000, Loss=0.215947, Time=3106.94 , LR=0.00409026
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:20,  4.53it/s]
+
+Overall Acc: 0.909144
+Mean Acc: 0.848922
+FreqW Acc: 0.839308
+Mean IoU: 0.706847
+
+Model saved as checkpoints/best_deeplabv3plus_resnet101_voc_os16.pth
+ Epoch 7, Itrs 610/3000, Loss=0.218856, Time=4522.85 , LR=0.00407492
+ Epoch 7, Itrs 620/3000, Loss=0.216730, Time=4311.03 , LR=0.00405957
+ Epoch 7, Itrs 630/3000, Loss=0.217724, Time=4153.53 , LR=0.00404422
+ Epoch 7, Itrs 640/3000, Loss=0.217752, Time=4032.03 , LR=0.00402886
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 8, Itrs 650/3000, Loss=0.175400, Time=3124.75 , LR=0.00401349
+ Epoch 8, Itrs 660/3000, Loss=0.207266, Time=3102.88 , LR=0.00399811
+ Epoch 8, Itrs 670/3000, Loss=0.198415, Time=3091.45 , LR=0.00398273
+ Epoch 8, Itrs 680/3000, Loss=0.194274, Time=3091.87 , LR=0.00396735
+ Epoch 8, Itrs 690/3000, Loss=0.189999, Time=3092.76 , LR=0.00395195
+ Epoch 8, Itrs 700/3000, Loss=0.184401, Time=3092.03 , LR=0.00393655
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:20,  4.52it/s]
+
+Overall Acc: 0.915550
+Mean Acc: 0.871221
+FreqW Acc: 0.849299
+Mean IoU: 0.720788
+
+Model saved as checkpoints/best_deeplabv3plus_resnet101_voc_os16.pth
+ Epoch 8, Itrs 710/3000, Loss=0.190116, Time=4337.73 , LR=0.00392114
+ Epoch 8, Itrs 720/3000, Loss=0.189272, Time=4174.78 , LR=0.00390573
+ Epoch 8, Itrs 730/3000, Loss=0.190976, Time=4047.99 , LR=0.00389031
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 9, Itrs 740/3000, Loss=0.214411, Time=3172.83 , LR=0.00387488
+ Epoch 9, Itrs 750/3000, Loss=0.191082, Time=3113.16 , LR=0.00385945
+ Epoch 9, Itrs 760/3000, Loss=0.205115, Time=3100.24 , LR=0.00384401
+ Epoch 9, Itrs 770/3000, Loss=0.199417, Time=3100.40 , LR=0.00382856
+ Epoch 9, Itrs 780/3000, Loss=0.190156, Time=3095.01 , LR=0.00381310
+ Epoch 9, Itrs 790/3000, Loss=0.187499, Time=3091.25 , LR=0.00379764
+ Epoch 9, Itrs 800/3000, Loss=0.185399, Time=3087.60 , LR=0.00378217
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:20,  4.53it/s]
+
+Overall Acc: 0.901910
+Mean Acc: 0.927131
+FreqW Acc: 0.831341
+Mean IoU: 0.709063
+
+ Epoch 9, Itrs 810/3000, Loss=0.186000, Time=4177.78 , LR=0.00376670
+ Epoch 9, Itrs 820/3000, Loss=0.185329, Time=4047.11 , LR=0.00375121
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 10, Itrs 830/3000, Loss=0.229223, Time=3232.25 , LR=0.00373572
+ Epoch 10, Itrs 840/3000, Loss=0.169178, Time=3090.99 , LR=0.00372023
+ Epoch 10, Itrs 850/3000, Loss=0.176577, Time=3088.85 , LR=0.00370472
+ Epoch 10, Itrs 860/3000, Loss=0.181123, Time=3086.36 , LR=0.00368921
+ Epoch 10, Itrs 870/3000, Loss=0.178866, Time=3085.63 , LR=0.00367369
+ Epoch 10, Itrs 880/3000, Loss=0.176667, Time=3088.79 , LR=0.00365816
+ Epoch 10, Itrs 890/3000, Loss=0.179872, Time=3087.74 , LR=0.00364263
+ Epoch 10, Itrs 900/3000, Loss=0.176312, Time=3086.45 , LR=0.00362709
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:20,  4.52it/s]
+
+Overall Acc: 0.914424
+Mean Acc: 0.886642
+FreqW Acc: 0.848831
+Mean IoU: 0.725600
+
+Model saved as checkpoints/best_deeplabv3plus_resnet101_voc_os16.pth
+ Epoch 10, Itrs 910/3000, Loss=0.177520, Time=4089.76 , LR=0.00361154
+ Epoch 10, Itrs 920/3000, Loss=0.175461, Time=3964.47 , LR=0.00359599
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 11, Itrs 930/3000, Loss=0.182012, Time=3106.72 , LR=0.00358042
+ Epoch 11, Itrs 940/3000, Loss=0.170937, Time=3088.41 , LR=0.00356485
+ Epoch 11, Itrs 950/3000, Loss=0.169838, Time=3086.92 , LR=0.00354927
+ Epoch 11, Itrs 960/3000, Loss=0.163915, Time=3085.07 , LR=0.00353369
+ Epoch 11, Itrs 970/3000, Loss=0.163687, Time=3083.37 , LR=0.00351809
+ Epoch 11, Itrs 980/3000, Loss=0.164312, Time=3080.79 , LR=0.00350249
+ Epoch 11, Itrs 990/3000, Loss=0.162334, Time=3081.71 , LR=0.00348688
+ Epoch 11, Itrs 1000/3000, Loss=0.165465, Time=3081.61 , LR=0.00347127
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:20,  4.53it/s]
+
+Overall Acc: 0.901964
+Mean Acc: 0.942048
+FreqW Acc: 0.832864
+Mean IoU: 0.714605
+
+ Epoch 11, Itrs 1010/3000, Loss=0.166388, Time=3980.43 , LR=0.00345564
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 12, Itrs 1020/3000, Loss=0.162882, Time=3126.15 , LR=0.00344001
+ Epoch 12, Itrs 1030/3000, Loss=0.159689, Time=3099.93 , LR=0.00342437
+ Epoch 12, Itrs 1040/3000, Loss=0.156904, Time=3091.52 , LR=0.00340872
+ Epoch 12, Itrs 1050/3000, Loss=0.154099, Time=3086.38 , LR=0.00339306
+ Epoch 12, Itrs 1060/3000, Loss=0.156749, Time=3081.91 , LR=0.00337740
+ Epoch 12, Itrs 1070/3000, Loss=0.154683, Time=3081.72 , LR=0.00336173
+ Epoch 12, Itrs 1080/3000, Loss=0.154987, Time=3080.86 , LR=0.00334605
+ Epoch 12, Itrs 1090/3000, Loss=0.152901, Time=3077.76 , LR=0.00333036
+ Epoch 12, Itrs 1100/3000, Loss=0.152907, Time=3077.01 , LR=0.00331466
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:20,  4.53it/s]
+
+Overall Acc: 0.920867
+Mean Acc: 0.934681
+FreqW Acc: 0.860371
+Mean IoU: 0.749911
+
+Model saved as checkpoints/best_deeplabv3plus_resnet101_voc_os16.pth
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 13, Itrs 1110/3000, Loss=0.143153, Time=3118.07 , LR=0.00329896
+ Epoch 13, Itrs 1120/3000, Loss=0.153665, Time=3096.68 , LR=0.00328324
+ Epoch 13, Itrs 1130/3000, Loss=0.147224, Time=3092.41 , LR=0.00326752
+ Epoch 13, Itrs 1140/3000, Loss=0.152138, Time=3093.98 , LR=0.00325179
+ Epoch 13, Itrs 1150/3000, Loss=0.152287, Time=3085.06 , LR=0.00323605
+ Epoch 13, Itrs 1160/3000, Loss=0.149486, Time=3079.77 , LR=0.00322030
+ Epoch 13, Itrs 1170/3000, Loss=0.147262, Time=3077.22 , LR=0.00320455
+ Epoch 13, Itrs 1180/3000, Loss=0.148245, Time=3076.40 , LR=0.00318878
+ Epoch 13, Itrs 1190/3000, Loss=0.147395, Time=3074.36 , LR=0.00317301
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 14, Itrs 1200/3000, Loss=0.131924, Time=3137.28 , LR=0.00315723
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:20,  4.53it/s]
+
+Overall Acc: 0.916937
+Mean Acc: 0.940266
+FreqW Acc: 0.854815
+Mean IoU: 0.744139
+
+ Epoch 14, Itrs 1210/3000, Loss=0.133859, Time=8879.33 , LR=0.00314144
+ Epoch 14, Itrs 1220/3000, Loss=0.139069, Time=6457.77 , LR=0.00312564
+ Epoch 14, Itrs 1230/3000, Loss=0.137716, Time=5458.63 , LR=0.00310983
+ Epoch 14, Itrs 1240/3000, Loss=0.137420, Time=4917.60 , LR=0.00309401
+ Epoch 14, Itrs 1250/3000, Loss=0.137970, Time=4573.57 , LR=0.00307819
+ Epoch 14, Itrs 1260/3000, Loss=0.139803, Time=4337.76 , LR=0.00306235
+ Epoch 14, Itrs 1270/3000, Loss=0.141657, Time=4165.15 , LR=0.00304651
+ Epoch 14, Itrs 1280/3000, Loss=0.143460, Time=4033.13 , LR=0.00303065
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 15, Itrs 1290/3000, Loss=0.138924, Time=3204.17 , LR=0.00301479
+ Epoch 15, Itrs 1300/3000, Loss=0.148843, Time=3109.77 , LR=0.00299892
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:21,  4.47it/s]
+
+Overall Acc: 0.912648
+Mean Acc: 0.947968
+FreqW Acc: 0.847885
+Mean IoU: 0.731612
+
+ Epoch 15, Itrs 1310/3000, Loss=0.141795, Time=6809.59 , LR=0.00298304
+ Epoch 15, Itrs 1320/3000, Loss=0.144794, Time=5674.43 , LR=0.00296715
+ Epoch 15, Itrs 1330/3000, Loss=0.145431, Time=5049.22 , LR=0.00295125
+ Epoch 15, Itrs 1340/3000, Loss=0.146628, Time=4669.28 , LR=0.00293534
+ Epoch 15, Itrs 1350/3000, Loss=0.144931, Time=4411.13 , LR=0.00291942
+ Epoch 15, Itrs 1360/3000, Loss=0.141718, Time=4223.41 , LR=0.00290349
+ Epoch 15, Itrs 1370/3000, Loss=0.139425, Time=4087.99 , LR=0.00288755
+ Epoch 15, Itrs 1380/3000, Loss=0.139525, Time=3969.50 , LR=0.00287160
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 16, Itrs 1390/3000, Loss=0.147129, Time=3103.85 , LR=0.00285564
+ Epoch 16, Itrs 1400/3000, Loss=0.138672, Time=3082.56 , LR=0.00283968
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:20,  4.52it/s]
+
+Overall Acc: 0.927258
+Mean Acc: 0.941667
+FreqW Acc: 0.870596
+Mean IoU: 0.768505
+
+Model saved as checkpoints/best_deeplabv3plus_resnet101_voc_os16.pth
+ Epoch 16, Itrs 1410/3000, Loss=0.141201, Time=5827.58 , LR=0.00282370
+ Epoch 16, Itrs 1420/3000, Loss=0.135690, Time=5132.74 , LR=0.00280771
+ Epoch 16, Itrs 1430/3000, Loss=0.136842, Time=4718.99 , LR=0.00279171
+ Epoch 16, Itrs 1440/3000, Loss=0.137453, Time=4446.22 , LR=0.00277570
+ Epoch 16, Itrs 1450/3000, Loss=0.134121, Time=4249.64 , LR=0.00275968
+ Epoch 16, Itrs 1460/3000, Loss=0.132192, Time=4099.58 , LR=0.00274366
+ Epoch 16, Itrs 1470/3000, Loss=0.130539, Time=3985.61 , LR=0.00272762
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 17, Itrs 1480/3000, Loss=0.126957, Time=3111.69 , LR=0.00271157
+ Epoch 17, Itrs 1490/3000, Loss=0.123634, Time=3102.59 , LR=0.00269550
+ Epoch 17, Itrs 1500/3000, Loss=0.126361, Time=3093.63 , LR=0.00267943
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:20,  4.52it/s]
+
+Overall Acc: 0.928947
+Mean Acc: 0.945247
+FreqW Acc: 0.873527
+Mean IoU: 0.775705
+
+Model saved as checkpoints/best_deeplabv3plus_resnet101_voc_os16.pth
+ Epoch 17, Itrs 1510/3000, Loss=0.123344, Time=5252.71 , LR=0.00266335
+ Epoch 17, Itrs 1520/3000, Loss=0.124220, Time=4799.05 , LR=0.00264726
+ Epoch 17, Itrs 1530/3000, Loss=0.126191, Time=4498.99 , LR=0.00263116
+ Epoch 17, Itrs 1540/3000, Loss=0.125635, Time=4287.36 , LR=0.00261504
+ Epoch 17, Itrs 1550/3000, Loss=0.125280, Time=4127.64 , LR=0.00259892
+ Epoch 17, Itrs 1560/3000, Loss=0.125082, Time=4007.28 , LR=0.00258278
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 18, Itrs 1570/3000, Loss=0.139029, Time=3112.93 , LR=0.00256663
+ Epoch 18, Itrs 1580/3000, Loss=0.133978, Time=3078.01 , LR=0.00255047
+ Epoch 18, Itrs 1590/3000, Loss=0.123766, Time=3067.97 , LR=0.00253430
+ Epoch 18, Itrs 1600/3000, Loss=0.122719, Time=3067.38 , LR=0.00251812
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:21,  4.52it/s]
+
+Overall Acc: 0.941790
+Mean Acc: 0.940698
+FreqW Acc: 0.893707
+Mean IoU: 0.806842
+
+Model saved as checkpoints/best_deeplabv3plus_resnet101_voc_os16.pth
+ Epoch 18, Itrs 1610/3000, Loss=0.120336, Time=4861.77 , LR=0.00250192
+ Epoch 18, Itrs 1620/3000, Loss=0.121775, Time=4541.84 , LR=0.00248572
+ Epoch 18, Itrs 1630/3000, Loss=0.121921, Time=4318.91 , LR=0.00246950
+ Epoch 18, Itrs 1640/3000, Loss=0.122168, Time=4154.17 , LR=0.00245327
+ Epoch 18, Itrs 1650/3000, Loss=0.121974, Time=4029.46 , LR=0.00243703
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 19, Itrs 1660/3000, Loss=0.098121, Time=3146.38 , LR=0.00242078
+ Epoch 19, Itrs 1670/3000, Loss=0.118955, Time=3100.99 , LR=0.00240451
+ Epoch 19, Itrs 1680/3000, Loss=0.121419, Time=3092.59 , LR=0.00238824
+ Epoch 19, Itrs 1690/3000, Loss=0.122488, Time=3089.48 , LR=0.00237195
+ Epoch 19, Itrs 1700/3000, Loss=0.118214, Time=3083.68 , LR=0.00235565
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:20,  4.52it/s]
+
+Overall Acc: 0.937076
+Mean Acc: 0.941981
+FreqW Acc: 0.886100
+Mean IoU: 0.791169
+
+ Epoch 19, Itrs 1710/3000, Loss=0.118722, Time=4585.43 , LR=0.00233933
+ Epoch 19, Itrs 1720/3000, Loss=0.118674, Time=4349.29 , LR=0.00232300
+ Epoch 19, Itrs 1730/3000, Loss=0.119893, Time=4180.00 , LR=0.00230666
+ Epoch 19, Itrs 1740/3000, Loss=0.119216, Time=4056.54 , LR=0.00229031
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 20, Itrs 1750/3000, Loss=0.116375, Time=3207.54 , LR=0.00227394
+ Epoch 20, Itrs 1760/3000, Loss=0.116921, Time=3090.94 , LR=0.00225757
+ Epoch 20, Itrs 1770/3000, Loss=0.123408, Time=3079.74 , LR=0.00224117
+ Epoch 20, Itrs 1780/3000, Loss=0.118666, Time=3072.80 , LR=0.00222477
+ Epoch 20, Itrs 1790/3000, Loss=0.115073, Time=3066.37 , LR=0.00220835
+ Epoch 20, Itrs 1800/3000, Loss=0.113686, Time=3063.90 , LR=0.00219192
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:21,  4.48it/s]
+
+Overall Acc: 0.937855
+Mean Acc: 0.951739
+FreqW Acc: 0.887689
+Mean IoU: 0.794551
+
+ Epoch 20, Itrs 1810/3000, Loss=0.113711, Time=4394.77 , LR=0.00217547
+ Epoch 20, Itrs 1820/3000, Loss=0.111501, Time=4211.54 , LR=0.00215901
+ Epoch 20, Itrs 1830/3000, Loss=0.111463, Time=4079.36 , LR=0.00214254
+ Epoch 20, Itrs 1840/3000, Loss=0.112009, Time=3960.27 , LR=0.00212605
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 21, Itrs 1850/3000, Loss=0.108743, Time=3102.43 , LR=0.00210955
+ Epoch 21, Itrs 1860/3000, Loss=0.108895, Time=3073.92 , LR=0.00209303
+ Epoch 21, Itrs 1870/3000, Loss=0.110400, Time=3073.16 , LR=0.00207650
+ Epoch 21, Itrs 1880/3000, Loss=0.109508, Time=3074.37 , LR=0.00205995
+ Epoch 21, Itrs 1890/3000, Loss=0.112063, Time=3071.70 , LR=0.00204339
+ Epoch 21, Itrs 1900/3000, Loss=0.110545, Time=3067.19 , LR=0.00202682
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:20,  4.52it/s]
+
+Overall Acc: 0.936685
+Mean Acc: 0.955910
+FreqW Acc: 0.885858
+Mean IoU: 0.792209
+
+ Epoch 21, Itrs 1910/3000, Loss=0.108996, Time=4219.22 , LR=0.00201023
+ Epoch 21, Itrs 1920/3000, Loss=0.110897, Time=4070.17 , LR=0.00199362
+ Epoch 21, Itrs 1930/3000, Loss=0.111635, Time=3953.91 , LR=0.00197700
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 22, Itrs 1940/3000, Loss=0.109144, Time=3047.15 , LR=0.00196036
+ Epoch 22, Itrs 1950/3000, Loss=0.113547, Time=3046.28 , LR=0.00194371
+ Epoch 22, Itrs 1960/3000, Loss=0.115558, Time=3045.92 , LR=0.00192704
+ Epoch 22, Itrs 1970/3000, Loss=0.114499, Time=3041.13 , LR=0.00191036
+ Epoch 22, Itrs 1980/3000, Loss=0.110222, Time=3035.14 , LR=0.00189366
+ Epoch 22, Itrs 1990/3000, Loss=0.110271, Time=3029.33 , LR=0.00187694
+ Epoch 22, Itrs 2000/3000, Loss=0.112591, Time=3030.23 , LR=0.00186021
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:20,  4.52it/s]
+
+Overall Acc: 0.939811
+Mean Acc: 0.956283
+FreqW Acc: 0.891195
+Mean IoU: 0.798353
+
+ Epoch 22, Itrs 2010/3000, Loss=0.111278, Time=4068.86 , LR=0.00184346
+ Epoch 22, Itrs 2020/3000, Loss=0.110446, Time=3952.99 , LR=0.00182669
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 23, Itrs 2030/3000, Loss=0.123928, Time=3117.85 , LR=0.00180990
+ Epoch 23, Itrs 2040/3000, Loss=0.118644, Time=3066.87 , LR=0.00179310
+ Epoch 23, Itrs 2050/3000, Loss=0.111457, Time=3056.37 , LR=0.00177628
+ Epoch 23, Itrs 2060/3000, Loss=0.105423, Time=3053.17 , LR=0.00175945
+ Epoch 23, Itrs 2070/3000, Loss=0.104322, Time=3053.21 , LR=0.00174259
+ Epoch 23, Itrs 2080/3000, Loss=0.103426, Time=3051.18 , LR=0.00172572
+ Epoch 23, Itrs 2090/3000, Loss=0.103639, Time=3049.03 , LR=0.00170883
+ Epoch 23, Itrs 2100/3000, Loss=0.103955, Time=3045.49 , LR=0.00169192
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:20,  4.52it/s]
+
+Overall Acc: 0.941940
+Mean Acc: 0.956891
+FreqW Acc: 0.894685
+Mean IoU: 0.807528
+
+Model saved as checkpoints/best_deeplabv3plus_resnet101_voc_os16.pth
+ Epoch 23, Itrs 2110/3000, Loss=0.104636, Time=4003.31 , LR=0.00167499
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 24, Itrs 2120/3000, Loss=0.091375, Time=3088.25 , LR=0.00165804
+ Epoch 24, Itrs 2130/3000, Loss=0.098096, Time=3061.46 , LR=0.00164107
+ Epoch 24, Itrs 2140/3000, Loss=0.103097, Time=3047.95 , LR=0.00162409
+ Epoch 24, Itrs 2150/3000, Loss=0.102674, Time=3054.34 , LR=0.00160708
+ Epoch 24, Itrs 2160/3000, Loss=0.102329, Time=3051.91 , LR=0.00159006
+ Epoch 24, Itrs 2170/3000, Loss=0.101680, Time=3048.95 , LR=0.00157301
+ Epoch 24, Itrs 2180/3000, Loss=0.105402, Time=3048.16 , LR=0.00155594
+ Epoch 24, Itrs 2190/3000, Loss=0.108802, Time=3048.78 , LR=0.00153885
+ Epoch 24, Itrs 2200/3000, Loss=0.110476, Time=3050.24 , LR=0.00152174
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:20,  4.52it/s]
+
+Overall Acc: 0.948129
+Mean Acc: 0.948614
+FreqW Acc: 0.904268
+Mean IoU: 0.825319
+
+Model saved as checkpoints/best_deeplabv3plus_resnet101_voc_os16.pth
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 25, Itrs 2210/3000, Loss=0.098686, Time=3255.46 , LR=0.00150461
+ Epoch 25, Itrs 2220/3000, Loss=0.110386, Time=3103.21 , LR=0.00148746
+ Epoch 25, Itrs 2230/3000, Loss=0.108657, Time=3087.63 , LR=0.00147029
+ Epoch 25, Itrs 2240/3000, Loss=0.109109, Time=3090.97 , LR=0.00145309
+ Epoch 25, Itrs 2250/3000, Loss=0.107496, Time=3118.73 , LR=0.00143587
+ Epoch 25, Itrs 2260/3000, Loss=0.106647, Time=3128.67 , LR=0.00141863
+ Epoch 25, Itrs 2270/3000, Loss=0.104995, Time=3134.63 , LR=0.00140137
+ Epoch 25, Itrs 2280/3000, Loss=0.104307, Time=3127.56 , LR=0.00138408
+ Epoch 25, Itrs 2290/3000, Loss=0.103312, Time=3125.39 , LR=0.00136676
+ Epoch 25, Itrs 2300/3000, Loss=0.103859, Time=3104.12 , LR=0.00134943
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:21,  4.51it/s]
+
+Overall Acc: 0.948395
+Mean Acc: 0.951469
+FreqW Acc: 0.904810
+Mean IoU: 0.823823
+
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 26, Itrs 2310/3000, Loss=0.106651, Time=3067.02 , LR=0.00133206
+ Epoch 26, Itrs 2320/3000, Loss=0.105373, Time=3081.45 , LR=0.00131468
+ Epoch 26, Itrs 2330/3000, Loss=0.105448, Time=3121.32 , LR=0.00129726
+ Epoch 26, Itrs 2340/3000, Loss=0.106201, Time=3110.55 , LR=0.00127982
+ Epoch 26, Itrs 2350/3000, Loss=0.104356, Time=3106.93 , LR=0.00126236
+ Epoch 26, Itrs 2360/3000, Loss=0.103155, Time=3103.04 , LR=0.00124487
+ Epoch 26, Itrs 2370/3000, Loss=0.104281, Time=3106.00 , LR=0.00122735
+ Epoch 26, Itrs 2380/3000, Loss=0.104109, Time=3107.20 , LR=0.00120980
+ Epoch 26, Itrs 2390/3000, Loss=0.102606, Time=3106.56 , LR=0.00119222
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 27, Itrs 2400/3000, Loss=0.098038, Time=3093.65 , LR=0.00117462
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:21,  4.50it/s]
+
+Overall Acc: 0.950484
+Mean Acc: 0.951548
+FreqW Acc: 0.908551
+Mean IoU: 0.830696
+
+Model saved as checkpoints/best_deeplabv3plus_resnet101_voc_os16.pth
+ Epoch 27, Itrs 2410/3000, Loss=0.099359, Time=7681.62 , LR=0.00115698
+ Epoch 27, Itrs 2420/3000, Loss=0.100088, Time=6042.09 , LR=0.00113932
+ Epoch 27, Itrs 2430/3000, Loss=0.101517, Time=5288.91 , LR=0.00112163
+ Epoch 27, Itrs 2440/3000, Loss=0.100862, Time=4866.61 , LR=0.00110390
+ Epoch 27, Itrs 2450/3000, Loss=0.100567, Time=4580.43 , LR=0.00108614
+ Epoch 27, Itrs 2460/3000, Loss=0.099442, Time=4368.99 , LR=0.00106835
+ Epoch 27, Itrs 2470/3000, Loss=0.098156, Time=4214.39 , LR=0.00105053
+ Epoch 27, Itrs 2480/3000, Loss=0.098256, Time=4106.34 , LR=0.00103268
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 28, Itrs 2490/3000, Loss=0.102145, Time=3271.56 , LR=0.00101478
+ Epoch 28, Itrs 2500/3000, Loss=0.100159, Time=3211.62 , LR=0.00099686
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:22,  4.45it/s]
+
+Overall Acc: 0.948344
+Mean Acc: 0.956060
+FreqW Acc: 0.905054
+Mean IoU: 0.824277
+
+ Epoch 28, Itrs 2510/3000, Loss=0.099800, Time=6348.82 , LR=0.00097890
+ Epoch 28, Itrs 2520/3000, Loss=0.101349, Time=5453.32 , LR=0.00096090
+ Epoch 28, Itrs 2530/3000, Loss=0.102293, Time=4944.48 , LR=0.00094286
+ Epoch 28, Itrs 2540/3000, Loss=0.104654, Time=4616.55 , LR=0.00092479
+ Epoch 28, Itrs 2550/3000, Loss=0.104374, Time=4384.92 , LR=0.00090668
+ Epoch 28, Itrs 2560/3000, Loss=0.104562, Time=4215.29 , LR=0.00088852
+ Epoch 28, Itrs 2570/3000, Loss=0.103528, Time=4086.10 , LR=0.00087033
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 29, Itrs 2580/3000, Loss=0.097930, Time=3247.00 , LR=0.00085209
+ Epoch 29, Itrs 2590/3000, Loss=0.092072, Time=3130.02 , LR=0.00083381
+ Epoch 29, Itrs 2600/3000, Loss=0.093156, Time=3108.28 , LR=0.00081548
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:21,  4.47it/s]
+
+Overall Acc: 0.951234
+Mean Acc: 0.953854
+FreqW Acc: 0.909851
+Mean IoU: 0.832375
+
+Model saved as checkpoints/best_deeplabv3plus_resnet101_voc_os16.pth
+ Epoch 29, Itrs 2610/3000, Loss=0.093477, Time=5541.12 , LR=0.00079711
+ Epoch 29, Itrs 2620/3000, Loss=0.092410, Time=4973.22 , LR=0.00077869
+ Epoch 29, Itrs 2630/3000, Loss=0.093652, Time=4618.04 , LR=0.00076023
+ Epoch 29, Itrs 2640/3000, Loss=0.095715, Time=4373.12 , LR=0.00074171
+ Epoch 29, Itrs 2650/3000, Loss=0.096962, Time=4194.54 , LR=0.00072314
+ Epoch 29, Itrs 2660/3000, Loss=0.096637, Time=4058.11 , LR=0.00070452
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 30, Itrs 2670/3000, Loss=0.070859, Time=3174.70 , LR=0.00068584
+ Epoch 30, Itrs 2680/3000, Loss=0.096068, Time=3064.15 , LR=0.00066711
+ Epoch 30, Itrs 2690/3000, Loss=0.097632, Time=3043.85 , LR=0.00064832
+ Epoch 30, Itrs 2700/3000, Loss=0.096613, Time=3044.07 , LR=0.00062946
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:21,  4.48it/s]
+
+Overall Acc: 0.949145
+Mean Acc: 0.957272
+FreqW Acc: 0.906416
+Mean IoU: 0.827077
+
+ Epoch 30, Itrs 2710/3000, Loss=0.098417, Time=4999.60 , LR=0.00061055
+ Epoch 30, Itrs 2720/3000, Loss=0.099507, Time=4637.09 , LR=0.00059157
+ Epoch 30, Itrs 2730/3000, Loss=0.100162, Time=4384.33 , LR=0.00057252
+ Epoch 30, Itrs 2740/3000, Loss=0.098852, Time=4201.32 , LR=0.00055340
+ Epoch 30, Itrs 2750/3000, Loss=0.099480, Time=4060.91 , LR=0.00053420
+ Epoch 30, Itrs 2760/3000, Loss=0.098654, Time=3935.09 , LR=0.00051493
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 31, Itrs 2770/3000, Loss=0.098465, Time=3083.73 , LR=0.00049558
+ Epoch 31, Itrs 2780/3000, Loss=0.102758, Time=3072.84 , LR=0.00047615
+ Epoch 31, Itrs 2790/3000, Loss=0.097860, Time=3071.68 , LR=0.00045662
+ Epoch 31, Itrs 2800/3000, Loss=0.097442, Time=3078.75 , LR=0.00043701
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:21,  4.51it/s]
+
+Overall Acc: 0.949274
+Mean Acc: 0.956837
+FreqW Acc: 0.906830
+Mean IoU: 0.825773
+
+ Epoch 31, Itrs 2810/3000, Loss=0.099189, Time=4698.95 , LR=0.00041729
+ Epoch 31, Itrs 2820/3000, Loss=0.096964, Time=4424.14 , LR=0.00039747
+ Epoch 31, Itrs 2830/3000, Loss=0.096312, Time=4227.29 , LR=0.00037754
+ Epoch 31, Itrs 2840/3000, Loss=0.096082, Time=4079.76 , LR=0.00035749
+ Epoch 31, Itrs 2850/3000, Loss=0.095183, Time=3963.02 , LR=0.00033732
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 32, Itrs 2860/3000, Loss=0.085551, Time=3129.12 , LR=0.00031701
+ Epoch 32, Itrs 2870/3000, Loss=0.089316, Time=3096.08 , LR=0.00029656
+ Epoch 32, Itrs 2880/3000, Loss=0.091812, Time=3069.06 , LR=0.00027595
+ Epoch 32, Itrs 2890/3000, Loss=0.092280, Time=3072.49 , LR=0.00025516
+ Epoch 32, Itrs 2900/3000, Loss=0.091592, Time=3081.87 , LR=0.00023419
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:21,  4.50it/s]
+
+Overall Acc: 0.949898
+Mean Acc: 0.957381
+FreqW Acc: 0.907774
+Mean IoU: 0.827853
+
+ Epoch 32, Itrs 2910/3000, Loss=0.094436, Time=4489.57 , LR=0.00021300
+ Epoch 32, Itrs 2920/3000, Loss=0.093153, Time=4278.56 , LR=0.00019158
+ Epoch 32, Itrs 2930/3000, Loss=0.093144, Time=4122.29 , LR=0.00016988
+ Epoch 32, Itrs 2940/3000, Loss=0.092872, Time=4002.41 , LR=0.00014788
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+ Epoch 33, Itrs 2950/3000, Loss=0.102159, Time=3087.41 , LR=0.00012550
+ Epoch 33, Itrs 2960/3000, Loss=0.099907, Time=3088.13 , LR=0.00010266
+ Epoch 33, Itrs 2970/3000, Loss=0.097714, Time=3084.58 , LR=0.00007924
+ Epoch 33, Itrs 2980/3000, Loss=0.096238, Time=3076.41 , LR=0.00005502
+ Epoch 33, Itrs 2990/3000, Loss=0.095735, Time=3068.78 , LR=0.00002948
+ Epoch 33, Itrs 3000/3000, Loss=0.096471, Time=3067.15 , LR=0.00000100
+validation...
+0it [00:00, ?it/s]/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+/home/xuzhan/miniconda3/envs/drs/lib/python3.8/site-packages/torchvision/transforms/functional.py:386: UserWarning: Argument interpolation should be of type InterpolationMode instead of int. Please, use InterpolationMode enum.
+  warnings.warn(
+366it [01:21,  4.50it/s]
+
+Overall Acc: 0.950476
+Mean Acc: 0.957703
+FreqW Acc: 0.908671
+Mean IoU: 0.829855
