@@ -126,13 +126,9 @@ def get_dataset(opts):
                                 std=[0.229, 0.224, 0.225]),
             ])
         train_dst = VOCSegmentation(root=opts.data_root, year=opts.year,
-                                    image_set='infer', download=opts.download, transform=train_transform)
+                                    image_set='train', download=opts.download, transform=train_transform)
         val_dst = VOCSegmentation(root=opts.data_root, year=opts.year,
-                                  image_set='infer', download=False, transform=val_transform)
-        # train_dst = VOCSegmentation(root=opts.data_root, year=opts.year,
-        #                             image_set='train', download=opts.download, transform=train_transform)
-        # val_dst = VOCSegmentation(root=opts.data_root, year=opts.year,
-        #                           image_set='val', download=False, transform=val_transform)
+                                  image_set='val', download=False, transform=val_transform)
 
     if opts.dataset == 'cityscapes':
         train_transform = et.ExtCompose([

@@ -103,8 +103,6 @@ class VOCSegmentation(data.Dataset):
         #base_dir = DATASET_YEAR_DICT[year]['base_dir']
         #voc_root = os.path.join(self.root, base_dir)
 
-        infer_root = "/home/xuzhan/Documents/irn/data/cross_epoch_exp_5/sem_seg"
-
         voc_root = self.root
         image_dir = os.path.join(voc_root, 'JPEGImages')
 
@@ -119,10 +117,6 @@ class VOCSegmentation(data.Dataset):
             mask_dir = os.path.join(voc_root, 'refined_pseudo_segmentation_labels')
             assert os.path.exists(mask_dir), "refined_pseudo_segmentation_labels not found, please refer to README.md and prepare it manually"
             split_f = './datasets/data/train_aug.txt'
-        elif image_set=='infer':
-            mask_dir = infer_root
-            assert os.path.exists(mask_dir), "refined_pseudo_segmentation_labels not found, please refer to README.md and prepare it manually"
-            split_f = './datasets/data/infer.txt'
         else:
             mask_dir = os.path.join(voc_root, 'SegmentationClass')
             splits_dir = os.path.join(voc_root, 'ImageSets/Segmentation')
