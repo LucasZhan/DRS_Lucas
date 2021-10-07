@@ -7,7 +7,7 @@ __pycache__/
 dataset/
 
 #output dir
-/results
+results/
 
 # C extensions
 *.so
