@@ -6,6 +6,9 @@ __pycache__/
 # softlink for dataset
 dataset/
 
+#output dir
+/results
+
 # C extensions
 *.so
 
