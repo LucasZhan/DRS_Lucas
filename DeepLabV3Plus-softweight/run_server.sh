@@ -1,7 +1,7 @@
 ROOT=../dataset
 MODEL=deeplabv3plus_resnet101 # deeplabv3plus_resnet101, deeplabv3_resnet101
-ITER=8000
-BATCH=32
+ITER=100
+BATCH=8
 LR=0.04
 
 mkdir -p logs
@@ -30,7 +30,7 @@ CUDA_VISLBLE_DEVICES=0,1 python main.py --data_root ${ROOT} \
                                         --total_itrs ${ITER} \
                                         --batch_size ${BATCH} \
                                         --lr ${LR}  \
-                                        --crop_val | tee logs/${identifier}.txt
+                                        --crop_val |  tee logs/${identifier}.txt
 
 
 ## evalutation with crf
