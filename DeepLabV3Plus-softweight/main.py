@@ -82,7 +82,7 @@ def get_argparser():
                         help='batch size for validation (default: 4)')
     parser.add_argument("--crop_size", type=int, default=513)
     
-    parser.add_argument("--ckpt", default=None, type=str,
+    parser.add_argument("--ckpt", default="checkpoints/best_deeplabv3plus_resnet101_voc_os16.pth", type=str,
                         help="restore from checkpoint")
     parser.add_argument("--continue_training", action='store_true', default=False)
 
@@ -124,6 +124,8 @@ def get_argparser():
                         type=str,help="The path of the list of output images name of irn (txt file)")
     parser.add_argument("--output_imgs_list_path", default="./datasets/data/infer.txt",
                         type=str, help="The path of the list of images for generating segmentation labels(txt file)")
+    parser.add_argument("--num_workers", default=8,
+                        type=int, help="The path of the list of images for generating segmentation labels(txt file)")
     return parser
 
 
@@ -274,11 +276,11 @@ def main():
     
     train_dst, val_dst, output_dst = get_dataset(opts)
     train_loader = data.DataLoader(
-        train_dst, batch_size=opts.batch_size, shuffle=True, num_workers=2)
+        train_dst, batch_size=opts.batch_size, shuffle=True, num_workers=opts.num_workers)
     val_loader = data.DataLoader(
-        val_dst, batch_size=opts.val_batch_size, shuffle=True, num_workers=2)
+        val_dst, batch_size=opts.val_batch_size, shuffle=True, num_workers=opts.num_workers)
     output_loader = data.DataLoader(
-        output_dst, batch_size=opts.batch_size, shuffle=True, num_workers=2)
+        output_dst, batch_size=opts.batch_size, shuffle=True, num_workers=opts.num_workers)
     # train_loader = data.DataLoader(
     #     train_dst, batch_size=opts.batch_size, shuffle=True, num_workers=0)
     # val_loader = data.DataLoader(
