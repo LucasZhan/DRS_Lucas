@@ -10,7 +10,7 @@ identifier='08_10_2021_IRNet'
 
 output_dir=results/seg_labels
 output_imgs_list_path=datasets/data/train_aug.txt
-irn_mask_root=/home/xzhan/IRNet_Lucas/data/server_baseline_e1/sem_seg
+irn_mask_root=~/data/irn_full_result/sem_seg
 irn_imgs_name_path=datasets/data/train_aug.txt
 
 #output_dir=results/seg_labels
