@@ -84,6 +84,7 @@ class VOCSegmentation(data.Dataset):
     cmap = voc_cmap()
     def __init__(self,
                  root,
+                 opts,
                  year='2012',
                  image_set='train',
                  download=False,
@@ -98,12 +99,10 @@ class VOCSegmentation(data.Dataset):
         self.md5 = DATASET_YEAR_DICT[year]['md5']
         self.transform = transform
         self.ret_fname = ret_fname
-        
+
         self.image_set = image_set
         #base_dir = DATASET_YEAR_DICT[year]['base_dir']
         #voc_root = os.path.join(self.root, base_dir)
-
-        infer_root = "/home/xuzhan/Documents/irn/data/cross_epoch_exp_5/sem_seg"
 
         voc_root = self.root
         image_dir = os.path.join(voc_root, 'JPEGImages')
@@ -119,10 +118,18 @@ class VOCSegmentation(data.Dataset):
             mask_dir = os.path.join(voc_root, 'refined_pseudo_segmentation_labels')
             assert os.path.exists(mask_dir), "refined_pseudo_segmentation_labels not found, please refer to README.md and prepare it manually"
             split_f = './datasets/data/train_aug.txt'
-        elif image_set=='infer':
-            mask_dir = infer_root
+        elif image_set=='irn_seg_labels':
+            # using the segmentation labels of IRNet as mask (target).
+            mask_dir = opts.irn_mask_root
             assert os.path.exists(mask_dir), "IRNet refined_pseudo_segmentation_labels not found, please prepare it manually"
-            split_f = './datasets/data/infer.txt'
+            # The path of the list of output images name of irn (txt file)
+            split_f = opts.irn_imgs_name_path
+        elif image_set=='output':
+            # Useless in output stage, can be arbitrary
+            mask_dir = opts.irn_mask_root
+            assert os.path.exists(mask_dir), "Output masks root not found, please prepare it manually"
+            # The path of the list of output images name of irn (txt file)
+            split_f = opts.output_imgs_list_path
         else:
             mask_dir = os.path.join(voc_root, 'SegmentationClass')
             splits_dir = os.path.join(voc_root, 'ImageSets/Segmentation')

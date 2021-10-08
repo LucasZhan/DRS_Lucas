@@ -118,6 +118,12 @@ def get_argparser():
     # Output option
     parser.add_argument("--output_dir", default="results/seg_labels", type=str,
                         help="output dir of segmentation labels")
+    parser.add_argument("--irn_mask_root", default="/home/xuzhan/Documents/irn/data/cross_epoch_exp_5/sem_seg", type=str,
+                        help="The root of the segmentation labels of IRNet")
+    parser.add_argument("--irn_imgs_name_path", default="./datasets/data/infer.txt",
+                        type=str,help="The path of the list of output images name of irn (txt file)")
+    parser.add_argument("--output_imgs_list_path", default="./datasets/data/infer.txt",
+                        type=str, help="The path of the list of images for generating segmentation labels(txt file)")
     return parser
 
 
@@ -152,12 +158,12 @@ def get_dataset(opts):
         #                             image_set='infer', download=opts.download, transform=train_transform, ret_fname=True)
         # val_dst = VOCSegmentation(root=opts.data_root, year=opts.year,
         #                           image_set='infer', download=False, transform=val_transform, ret_fname=True)
-        train_dst = VOCSegmentation(root=opts.data_root, year=opts.year,
-                                    image_set='train', download=opts.download, transform=train_transform)
-        val_dst = VOCSegmentation(root=opts.data_root, year=opts.year,
+        train_dst = VOCSegmentation(root=opts.data_root, opts=opts, year=opts.year,
+                                    image_set='irn_seg_labels', download=opts.download, transform=train_transform)
+        val_dst = VOCSegmentation(root=opts.data_root, opts=opts, year=opts.year,
                                   image_set='val', download=False, transform=val_transform)
-        output_dst = VOCSegmentation(root=opts.data_root, year=opts.year,
-                                    image_set='infer', download=opts.download, transform=train_transform, ret_fname=True)
+        output_dst = VOCSegmentation(root=opts.data_root, opts=opts, year=opts.year,
+                                    image_set='output', download=opts.download, transform=train_transform, ret_fname=True)
 
     if opts.dataset == 'cityscapes':
         train_transform = et.ExtCompose([
@@ -181,8 +187,7 @@ def get_dataset(opts):
                                split='train', transform=train_transform)
         val_dst = Cityscapes(root=opts.data_root,
                              split='val', transform=val_transform)
-        output_dst = Cityscapes(root=opts.data_root,
-                               split='infer', transform=train_transform)
+        output_dst = None
     return train_dst, val_dst, output_dst
 
 
