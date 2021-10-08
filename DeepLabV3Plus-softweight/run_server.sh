@@ -1,7 +1,7 @@
 ROOT=../dataset
 MODEL=deeplabv3plus_resnet101 # deeplabv3plus_resnet101, deeplabv3_resnet101
 ITER=100
-BATCH=8
+BATCH=16
 LR=0.04
 
 mkdir -p logs
