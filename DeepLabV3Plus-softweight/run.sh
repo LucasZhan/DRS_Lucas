@@ -1,8 +1,8 @@
 ROOT=../dataset
 MODEL=deeplabv3plus_resnet101 # deeplabv3plus_resnet101, deeplabv3_resnet101
-ITER=3000
+ITER=8000
 BATCH=32
-LR=0.05
+LR=0.04
 
 
 # training with 2 GPUs
