@@ -23,11 +23,26 @@ import matplotlib.pyplot as plt
 
 torch.backends.cudnn.benchmark = True
 
+def save_seg_labels(opts, model, loader, device):
+    if not os.path.exists(opts.output_dir):
+        os.mkdir(opts.output_dir)
+
+    with torch.no_grad():
+        for (images, _, images_name) in loader:
+            images = images.to(device, dtype=torch.float32)
+            preds = model(images)
+            seg_labels = preds.detach().max(dim=1)[1].cpu().numpy()
+
+            for i in range(len(images)):
+                seg = seg_labels[i]
+                seg = loader.dataset.decode_target(seg).astype(np.uint8)
+                Image.fromarray(seg).save(os.path.join(opts.output_dir, images_name[i] + '.png'))
+
 def get_argparser():
     parser = argparse.ArgumentParser()
 
     # Datset Options
-    parser.add_argument("--data_root", type=str, default='./datasets/data',
+    parser.add_argument("--data_root", type=str, default='../dataset',
                         help="path to Dataset")
     parser.add_argument("--dataset", type=str, default='voc',
                         choices=['voc', 'cityscapes'], help='Name of dataset')
@@ -48,9 +63,13 @@ def get_argparser():
     parser.add_argument("--test_only", action='store_true', default=False)
     parser.add_argument("--save_val_results", action='store_true', default=False,
                         help="save segmentation results to \"./results\"")
-    parser.add_argument("--total_itrs", type=int, default=30e3,
+    # parser.add_argument("--total_itrs", type=int, default=30e3,
+    #                     help="epoch number (default: 30k)")
+    parser.add_argument("--total_itrs", type=int, default=3000,
                         help="epoch number (default: 30k)")
-    parser.add_argument("--lr", type=float, default=0.01,
+    # parser.add_argument("--lr", type=float, default=0.01,
+    #                     help="learning rate (default: 0.01)")
+    parser.add_argument("--lr", type=float, default=0.05,
                         help="learning rate (default: 0.01)")
     parser.add_argument("--lr_policy", type=str, default='poly', choices=['poly', 'step'],
                         help="learning rate scheduler policy")
@@ -95,6 +114,10 @@ def get_argparser():
                         help='env for visdom')
     parser.add_argument("--vis_num_samples", type=int, default=8,
                         help='number of samples for visualization (default: 8)')
+
+    # Output option
+    parser.add_argument("--output_dir", default="results/seg_labels", type=str,
+                        help="output dir of segmentation labels")
     return parser
 
 
@@ -125,14 +148,16 @@ def get_dataset(opts):
                 et.ExtNormalize(mean=[0.485, 0.456, 0.406],
                                 std=[0.229, 0.224, 0.225]),
             ])
-        train_dst = VOCSegmentation(root=opts.data_root, year=opts.year,
-                                    image_set='infer', download=opts.download, transform=train_transform)
-        val_dst = VOCSegmentation(root=opts.data_root, year=opts.year,
-                                  image_set='infer', download=False, transform=val_transform)
         # train_dst = VOCSegmentation(root=opts.data_root, year=opts.year,
-        #                             image_set='train', download=opts.download, transform=train_transform)
+        #                             image_set='infer', download=opts.download, transform=train_transform, ret_fname=True)
         # val_dst = VOCSegmentation(root=opts.data_root, year=opts.year,
-        #                           image_set='val', download=False, transform=val_transform)
+        #                           image_set='infer', download=False, transform=val_transform, ret_fname=True)
+        train_dst = VOCSegmentation(root=opts.data_root, year=opts.year,
+                                    image_set='train', download=opts.download, transform=train_transform)
+        val_dst = VOCSegmentation(root=opts.data_root, year=opts.year,
+                                  image_set='val', download=False, transform=val_transform)
+        output_dst = VOCSegmentation(root=opts.data_root, year=opts.year,
+                                    image_set='infer', download=opts.download, transform=train_transform, ret_fname=True)
 
     if opts.dataset == 'cityscapes':
         train_transform = et.ExtCompose([
@@ -156,7 +181,9 @@ def get_dataset(opts):
                                split='train', transform=train_transform)
         val_dst = Cityscapes(root=opts.data_root,
                              split='val', transform=val_transform)
-    return train_dst, val_dst
+        output_dst = Cityscapes(root=opts.data_root,
+                               split='infer', transform=train_transform)
+    return train_dst, val_dst, output_dst
 
 
 def validate(opts, model, loader, device, metrics, ret_samples_ids=None):
@@ -240,11 +267,17 @@ def main():
     if opts.dataset=='voc' and not opts.crop_val:
         opts.val_batch_size = 1
     
-    train_dst, val_dst = get_dataset(opts)
+    train_dst, val_dst, output_dst = get_dataset(opts)
     train_loader = data.DataLoader(
         train_dst, batch_size=opts.batch_size, shuffle=True, num_workers=2)
     val_loader = data.DataLoader(
         val_dst, batch_size=opts.val_batch_size, shuffle=True, num_workers=2)
+    output_loader = data.DataLoader(
+        output_dst, batch_size=opts.batch_size, shuffle=True, num_workers=2)
+    # train_loader = data.DataLoader(
+    #     train_dst, batch_size=opts.batch_size, shuffle=True, num_workers=0)
+    # val_loader = data.DataLoader(
+    #     val_dst, batch_size=opts.val_batch_size, shuffle=True, num_workers=0)
     print("Dataset: %s, Train set: %d, Val set: %d" %
           (opts.dataset, len(train_dst), len(val_dst)))
 
@@ -403,8 +436,8 @@ def main():
                 model.train()
 
             if cur_itrs >=  opts.total_itrs:
+                save_seg_labels(opts, model, output_loader, device)
                 return
 
-        
 if __name__ == '__main__':
     main()

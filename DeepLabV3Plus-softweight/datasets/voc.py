@@ -121,7 +121,7 @@ class VOCSegmentation(data.Dataset):
             split_f = './datasets/data/train_aug.txt'
         elif image_set=='infer':
             mask_dir = infer_root
-            assert os.path.exists(mask_dir), "refined_pseudo_segmentation_labels not found, please refer to README.md and prepare it manually"
+            assert os.path.exists(mask_dir), "IRNet refined_pseudo_segmentation_labels not found, please prepare it manually"
             split_f = './datasets/data/infer.txt'
         else:
             mask_dir = os.path.join(voc_root, 'SegmentationClass')
