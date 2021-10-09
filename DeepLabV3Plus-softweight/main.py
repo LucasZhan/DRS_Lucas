@@ -82,7 +82,7 @@ def get_argparser():
                         help='batch size for validation (default: 4)')
     parser.add_argument("--crop_size", type=int, default=513)
     
-    parser.add_argument("--ckpt", default="checkpoints/best_deeplabv3plus_resnet101_voc_os16.pth", type=str,
+    parser.add_argument("--ckpt", default=None, type=str,
                         help="restore from checkpoint")
     parser.add_argument("--continue_training", action='store_true', default=False)
 
@@ -124,8 +124,8 @@ def get_argparser():
                         type=str,help="The path of the list of output images name of irn (txt file)")
     parser.add_argument("--output_imgs_list_path", default="./datasets/data/infer.txt",
                         type=str, help="The path of the list of images for generating segmentation labels(txt file)")
-    parser.add_argument("--num_workers", default=8,
-                        type=int, help="The path of the list of images for generating segmentation labels(txt file)")
+    parser.add_argument("--num_workers", default=0,
+                        type=int, help="Number of workers for data loader")
     return parser
 
 
@@ -398,7 +398,9 @@ def main():
             with torch.cuda.amp.autocast(enabled=opts.amp):
                 outputs = model(images)
                 loss = criterion(outputs, labels)
-                
+                # loss = labels * torch.log(torch.softmax(outputs, dim = 1) + 1e-10)
+                # loss = -loss.sum(dim=1)
+                # loss = loss.mean()
             scaler.scale(loss).backward()
             scaler.step(optimizer)
             scaler.update()
