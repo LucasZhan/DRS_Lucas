@@ -32,7 +32,7 @@ CUDA_VISLBLE_DEVICES=0,1 python main.py --data_root ${ROOT} \
                                         --batch_size ${BATCH} \
                                         --lr ${LR}  \
                                         --num_workers ${num_workers} \
-                                        --crop_val |  tee logs/${identifier}.txt
+                                        --crop_val 2>&1 |  tee logs/${identifier}.txt
 
 
 ## evalutation with crf
