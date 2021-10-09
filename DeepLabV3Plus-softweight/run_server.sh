@@ -1,17 +1,18 @@
 ROOT=../dataset
 MODEL=deeplabv3plus_resnet101 # deeplabv3plus_resnet101, deeplabv3_resnet101
-ITER=100
-BATCH=16
+ITER=8000
+BATCH=24
 LR=0.04
 
 mkdir -p logs
 
-identifier='08_10_2021_IRNet'
+identifier='IRNet_full_2_DLV3+'
 
 output_dir=results/seg_labels
 output_imgs_list_path=datasets/data/train_aug.txt
 irn_mask_root=~/data/irn_full_result/sem_seg
 irn_imgs_name_path=datasets/data/train_aug.txt
+num_workers=8
 
 #output_dir=results/seg_labels
 #output_imgs_list_path=datasets/data/infer.txt
@@ -30,6 +31,7 @@ CUDA_VISLBLE_DEVICES=0,1 python main.py --data_root ${ROOT} \
                                         --total_itrs ${ITER} \
                                         --batch_size ${BATCH} \
                                         --lr ${LR}  \
+                                        --num_workers ${num_workers} \
                                         --crop_val |  tee logs/${identifier}.txt
 
 
