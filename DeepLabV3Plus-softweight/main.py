@@ -25,7 +25,7 @@ torch.backends.cudnn.benchmark = True
 
 def save_seg_labels(opts, model, loader, device):
     if not os.path.exists(opts.output_dir):
-        os.mkdir(opts.output_dir)
+        os.makedirs(opts.output_dir)
 
     with torch.no_grad():
         for (images, _, images_name) in loader:
