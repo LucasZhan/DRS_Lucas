@@ -2,12 +2,16 @@ import os
 import sys
 import tarfile
 import collections
+
+import torch
 import torch.utils.data as data
 import shutil
 import numpy as np
 
 from PIL import Image
 from torchvision.datasets.utils import download_url, check_integrity
+
+import torchvision.transforms.functional as F
 
 DATASET_YEAR_DICT = {
     '2012': {
@@ -99,7 +103,7 @@ class VOCSegmentation(data.Dataset):
         self.md5 = DATASET_YEAR_DICT[year]['md5']
         self.transform = transform
         self.ret_fname = ret_fname
-
+        
         self.image_set = image_set
         #base_dir = DATASET_YEAR_DICT[year]['base_dir']
         #voc_root = os.path.join(self.root, base_dir)
@@ -114,26 +118,23 @@ class VOCSegmentation(data.Dataset):
             raise RuntimeError('Dataset not found or corrupted.' +
                                ' You can use download=True to download it')
         
+        # if image_set=='train':
+        #     mask_dir = os.path.join(voc_root, 'refined_pseudo_segmentation_labels')
+        #     assert os.path.exists(mask_dir), "refined_pseudo_segmentation_labels not found, please refer to README.md and prepare it manually"
+        #     split_f = './datasets/data/train_aug.txt'
         if image_set=='train':
-            mask_dir = os.path.join(voc_root, 'refined_pseudo_segmentation_labels')
-            assert os.path.exists(mask_dir), "refined_pseudo_segmentation_labels not found, please refer to README.md and prepare it manually"
-            split_f = './datasets/data/train_aug.txt'
-        elif image_set=='irn_seg_labels':
-            # using the segmentation labels of IRNet as mask (target).
-            mask_dir = opts.irn_mask_root
-            assert os.path.exists(mask_dir), "IRNet refined_pseudo_segmentation_labels not found, please prepare it manually"
-            # The path of the list of output images name of irn (txt file)
-            split_f = opts.irn_imgs_name_path
-        elif image_set=='output':
-            # Useless in output stage, can be arbitrary
-            mask_dir = opts.irn_mask_root
-            assert os.path.exists(mask_dir), "Output masks root not found, please prepare it manually"
-            # The path of the list of output images name of irn (txt file)
-            split_f = opts.output_imgs_list_path
+            # Train with soft weight labels
+            soft_weight_dir = opts.soft_weight_root
+            mask_dir = opts.seg_labels_root
+            assert os.path.exists(soft_weight_dir), "soft weight labels root not found"
+            assert os.path.exists(mask_dir), "pseudo segmentation labels root not found"
+            split_f = opts.train_file_path
         else:
             mask_dir = os.path.join(voc_root, 'SegmentationClass')
-            splits_dir = os.path.join(voc_root, 'ImageSets/Segmentation')
-            split_f = os.path.join(splits_dir, image_set.rstrip('\n') + '.txt')
+            soft_weight_dir = opts.soft_weight_root
+            assert os.path.exists(soft_weight_dir), "soft weight labels root not found"
+            assert os.path.exists(mask_dir), "pseudo segmentation labels root not found"
+            split_f = opts.val_file_path
 
         print("split_f : ", split_f, os.path.exists(split_f))
         if not os.path.exists(split_f):
@@ -146,6 +147,8 @@ class VOCSegmentation(data.Dataset):
         
         self.images = [os.path.join(image_dir, x + ".jpg") for x in self.file_names]
         self.masks = [os.path.join(mask_dir, x + ".png") for x in self.file_names]
+        self.soft_weight = [os.path.join(soft_weight_dir, x + ".npy") for x in self.file_names]
+        self.crop_size = opts.crop_size
         assert (len(self.images) == len(self.masks))
         
 
@@ -158,13 +161,22 @@ class VOCSegmentation(data.Dataset):
         """
         img = Image.open(self.images[index]).convert('RGB')
         target = Image.open(self.masks[index])
+        soft_weight = np.load(self.soft_weight[index], allow_pickle=True)
+        sw_num_epoches = soft_weight.item().get('num_epoches')
+        soft_weight = soft_weight.item().get('weights')
+        soft_weight = torch.from_numpy(soft_weight)
+
+
+        soft_weight = (soft_weight + sw_num_epoches) / (sw_num_epoches * 2)
+
+
         if self.transform is not None:
-            img, target = self.transform(img, target)
+            img, target, soft_weight = self.transform(img, target, soft_weight)
 
         if self.ret_fname:
-            return img, target, self.file_names[index]
+            return img, target, soft_weight, self.file_names[index]
         
-        return img, target
+        return img, target, soft_weight
 
 
     def __len__(self):
