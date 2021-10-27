@@ -1,6 +1,6 @@
 ROOT=../dataset
 MODEL=deeplabv3plus_resnet101 # deeplabv3plus_resnet101, deeplabv3_resnet101
-ITER=8000
+ITER=4000
 BATCH=20
 LR=0.06
 
