@@ -149,3 +149,4 @@ DeepLabV3Plus-Pytorch/metrics/__pycache__
 DeepLabV3Plus-Pytorch/network/__pycache__
 DeepLabV3Plus-Pytorch/utils/__pycache__
 
+/dataset/
