@@ -146,31 +146,22 @@ def get_dataset(opts):
                                     image_set='train', download=opts.download, transform=train_transform)
         val_dst = VOCSegmentation(root=opts.data_root, year=opts.year, opts=opts,
                                   image_set='val', download=False, transform=val_transform)
+        # output the seg mask of images in train list.
+        output_dst = VOCSegmentation(root=opts.data_root, year=opts.year, opts=opts, ret_fname=True,
+                                    image_set='train', download=opts.download, transform=train_transform)
+    return train_dst, val_dst, output_dst
 
-    if opts.dataset == 'cityscapes':
-        train_transform = et.ExtCompose([
-            #et.ExtResize( 512 ),
-            et.ExtRandomCrop(size=(opts.crop_size, opts.crop_size)),
-            et.ExtColorJitter( brightness=0.5, contrast=0.5, saturation=0.5 ),
-            et.ExtRandomHorizontalFlip(),
-            et.ExtToTensor(),
-            et.ExtNormalize(mean=[0.485, 0.456, 0.406],
-                            std=[0.229, 0.224, 0.225]),
-        ])
-
-        val_transform = et.ExtCompose([
-            #et.ExtResize( 512 ),
-            et.ExtToTensor(),
-            et.ExtNormalize(mean=[0.485, 0.456, 0.406],
-                            std=[0.229, 0.224, 0.225]),
-        ])
-
-        train_dst = Cityscapes(root=opts.data_root,
-                               split='train', transform=train_transform)
-        val_dst = Cityscapes(root=opts.data_root,
-                             split='val', transform=val_transform)
-    return train_dst, val_dst
-
+def save_seg(opts, model, loader, device):
+    with torch.no_grad():
+        for (images, _, _, img_names) in loader:
+            images = images.to(device, dtype = torch.float32)
+            outputs = model(images)
+            preds = outputs.detach().max(dim=1)[1].cpu().numpy()
+            for i in range(len(preds)):
+                img_name = img_names[i]
+                pred = preds[i]
+                pred = loader.dataset.decode_target(pred).astype(np.uint8)
+                Image.fromarray(pred).save(os.path.join(opts.output_dir, img_name + '.png'))
 
 def validate(opts, model, loader, device, metrics, ret_samples_ids=None):
     """Do validation and return specified samples"""
@@ -254,11 +245,13 @@ def main():
     if opts.dataset=='voc' and not opts.crop_val:
         opts.val_batch_size = 1
     
-    train_dst, val_dst = get_dataset(opts)
+    train_dst, val_dst, output_dst = get_dataset(opts)
     train_loader = data.DataLoader(
         train_dst, batch_size=opts.batch_size, shuffle=True, num_workers=opts.num_workers)
     val_loader = data.DataLoader(
         val_dst, batch_size=opts.val_batch_size, shuffle=True, num_workers=opts.num_workers)
+    output_loader = data.DataLoader(
+        output_dst, batch_size=opts.batch_size, shuffle=True, num_workers=opts.num_workers)
     print("Dataset: %s, Train set: %d, Val set: %d" %
           (opts.dataset, len(train_dst), len(val_dst)))
 
@@ -348,10 +341,10 @@ def main():
         return
 
     scaler = torch.cuda.amp.GradScaler(enabled=opts.amp)
-    
+
     avg_loss = AverageMeter()
     avg_time = AverageMeter()
-    
+
     interval_loss = 0
     while True: #cur_itrs < opts.total_itrs:
         # =====  Train  =====
@@ -360,7 +353,7 @@ def main():
         model.train()
         cur_epochs += 1
         end_time = time.time()
-        
+
         for (images, labels, soft_weight) in train_loader:
             cur_itrs += 1
 
@@ -369,7 +362,7 @@ def main():
             soft_weight = soft_weight.to(device, dtype=torch.uint8)
 
             optimizer.zero_grad()
-            
+
             with torch.cuda.amp.autocast(enabled=opts.amp):
                 outputs = model(images)
                 # loss = criterion(outputs, labels)
@@ -391,7 +384,7 @@ def main():
 
             if (cur_itrs) % 10 == 0:
                 print(" Epoch %d, Itrs %d/%d, Loss=%6f, Time=%.2f , LR=%.8f" %
-                  (cur_epochs, cur_itrs, opts.total_itrs, 
+                  (cur_epochs, cur_itrs, opts.total_itrs,
                    avg_loss.avg, avg_time.avg*1000, optimizer.param_groups[0]['lr']))
 
             if (cur_itrs) % opts.val_interval == 0:
@@ -421,6 +414,8 @@ def main():
                 model.train()
 
             if cur_itrs >=  opts.total_itrs:
+                model.eval()
+                save_seg(opts, model, output_loader, device)
                 return
 
         
