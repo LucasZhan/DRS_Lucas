@@ -13,7 +13,7 @@ train_file_path=./datasets/data/train_aug.txt
 val_file_path=./datasets/data/infer.txt
 output_imgs_list_path=./datasets/data/train_aug.txt
 
-num_workers=8
+num_workers=6
 
 for exp_no in 1 2 3 4 5
 do
